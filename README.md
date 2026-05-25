@@ -8,8 +8,6 @@ expert, gated by a small time/state-conditioned softmax. Subject visits are
 aligned to a shared global trajectory via per-subject time shift `t0` and
 optional time scaling `alpha`.
 
-The release intentionally excludes raw data, trained checkpoints, generated
-figures, experiment outputs, and paper-specific post-processing scripts.
 
 ## Repository Layout
 
