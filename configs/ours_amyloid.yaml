@@ -1,0 +1,76 @@
+data:
+  sc_path: data/sc_matrix.csv
+  tau_path: data/amyloid_pet.csv
+  roi_subset: cortex_hippo_amygdala
+  artifacts_dir: artifacts
+  outputs_dir: outputs
+split:
+  seed: 42
+  train_frac: 0.8
+  val_frac: 0.1
+  test_frac: 0.1
+preprocess:
+  winsorize: true
+  winsorize_p1: 1.0
+  winsorize_p99: 99.0
+  transform: minmax
+model:
+  laplacian: rw
+  reaction: logistic
+  time_unit: year
+  dt: 0.1
+  global_time_pad: 15.0
+  gate_use_mean: true
+  disable_gate: false
+  fixed_beta: null
+  fixed_beta_normalize: true
+  enable_local: true
+  phys_dmod: true
+phys_dmod:
+  hidden: 32
+  eps: 0.001
+local:
+  mode: per_roi
+  hidden: 32
+  layers: 2
+  use_rho: true
+  rho_max: 0.1
+  global_hidden: 64
+  global_layers: 3
+training:
+  device: auto
+  lr: 0.01
+  grad_clip: 1.0
+  alignment_iters: 10
+  epochs_per_iter: 50
+  t0_grid_size: 41
+  loss_mode: mse
+  data_loss_weight: 10
+  roi_cap: 1
+  ignore_cap_first_n: 2
+  k_max: 0.5
+  lambda_local: 0.01
+  lambda_mono: 20
+  lambda_ent: 0.05
+  lambda_d_phys: 0.01
+  lambda_d_phys_smooth: 0.01
+  mono_eps: 0
+  alpha_enabled: true
+  alpha_warmup_iters: 1
+  alpha_stage1_iters: 2
+  alpha_stage1_min: 0.8
+  alpha_stage1_max: 1.2
+  alpha_stage2_min: 0.5
+  alpha_stage2_max: 2.0
+  alpha_grid_size: 9
+  alpha_refine_steps: 5
+  alpha_refine_width: 0.1
+  lambda_alpha: 1e-3
+  weighted_expert_reg: false
+  mono_mode: roi
+  safety_clip: true
+  safety_min: -0.1
+  safety_max: 1.1
+sanity:
+  enabled: false
+
